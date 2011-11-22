@@ -1,43 +1,21 @@
-<html>
-<a href="logout.php">Logout</a> <br/>
-</html>
-
 <?php
-		
-	session_start();
-	
-	include_once 'database.php';
-	
-	$userid = $_SESSION['id'];
-	
-	$sql = "INSERT INTO onlineusers (uid) VALUES (" . $userid . ")";
-	
-			
-		if(sql_execute($sql))
-			{
-				echo $userid."<br/>";
-				echo "Successfully added";
-				header("location:chat.php");
-			}
-		else 
-			{
-				echo $userid."<br/>";
-				echo "failed";
-				echo "bla";
-			}	
-		
+session_start();
+
+include_once 'database.php';
+
+$userid = $_SESSION['id'];
+
+if(sql_setOnlineUser($userid,true))
+{
+	header("location:chatClient.php");
+}
+else
+{
+	echo "<form action='login.php' method='post' name='frm'>								
+				<input type='hidden' name='status' value='failed3' />				
+			</form>
+			<script language='javaScript'>
+				document.frm.submit();
+			</script>";					
+}
 ?>
-
-
-	
-		
-		
-		
-			
-		
-			
-		
-	
-			
-			
-	
